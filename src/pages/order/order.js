@@ -31,7 +31,7 @@ class Order extends Component {
     constructor(props) {
         super(props)  
         this.state = {
-            order: [...this.props?.history?.location?.state?.order],
+            order: this.props?.history?.location?.state?.order || [],
             loading: false,
             selected: 'whatsapp'
         }
