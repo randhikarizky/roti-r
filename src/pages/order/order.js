@@ -31,13 +31,13 @@ class Order extends Component {
     constructor(props) {
         super(props)  
         this.state = {
-            order: [],
+            order: [...this.props?.history?.location?.state?.order],
             loading: false,
             selected: 'whatsapp'
         }
     }
 
-    componentDidUpdate() {
+    componentDidMount() {
         console.log(this.state)
     }
 
@@ -60,6 +60,16 @@ class Order extends Component {
     handleSubmit = () => {
         this.setState({ loading: true })
         this.orderProcess()
+    }
+
+    handleToDashboard = () => {
+        const { history } = this.props
+        history.push({
+            pathname: '/dashboard',
+            state: {
+                breadOrders: this.state.order
+            }
+        })
     }
 
     orderProcess = () => {
@@ -116,6 +126,19 @@ class Order extends Component {
                                 </Typography>
                             </Stack>
                         </Box>
+                        <Box
+                            sx={{ 
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                                paddingBottom: 0,
+                                cursor: 'pointer'
+                             }}
+                        >
+                            <Typography variant='subtitle2' onClick={() => this.handleToDashboard()}>
+                                Go to Dashboard
+                            </Typography>
+                        </Box>
                         <FormRect container spacing={2}>
                             <Grid 
                                 item 
@@ -168,7 +191,7 @@ class Order extends Component {
                                                     required
                                                     fullWidth
                                                     variant='outlined'
-                                                    label="First Name"
+                                                    label='First Name'
                                                     name='firstName'
                                                     onChange={e => this.onHandleChange(e)}
                                                     value={this.state.firstName}
@@ -177,7 +200,7 @@ class Order extends Component {
                                                     required
                                                     fullWidth
                                                     variant='outlined'
-                                                    label="Last Name"
+                                                    label='Last Name'
                                                     name='lastName'
                                                     onChange={e => this.onHandleChange(e)}
                                                     value={this.state.lastName}
@@ -188,7 +211,7 @@ class Order extends Component {
                                             required
                                             fullWidth
                                             variant='outlined'
-                                            label="Email address"
+                                            label='Email address'
                                             type='email'
                                             name='email'
                                             onChange={e => this.onHandleChange(e)}
@@ -203,7 +226,7 @@ class Order extends Component {
                                                     required
                                                     margin='none'
                                                     variant='outlined'
-                                                    label="Area Code"
+                                                    label='Area Code'
                                                     name='areaCode'
                                                     onChange={e => this.onHandleChange(e)}
                                                     value={this.state.areaCode}
@@ -214,7 +237,7 @@ class Order extends Component {
                                                     margin='none'
                                                     variant='outlined'
                                                     type='number'
-                                                    label="Phone Number"
+                                                    label='Phone Number'
                                                     name='phoneNumber'
                                                     onChange={e => this.onHandleChange(e)}
                                                     value={this.state.phoneNumber}
@@ -226,7 +249,7 @@ class Order extends Component {
                                             fullWidth
                                             variant='outlined'
                                             type='number'
-                                            label="Amount"
+                                            label='Amount'
                                             placeholder='ex: 23 pcs'
                                             name='amount'
                                             onChange={e => this.onHandleChange(e)}
@@ -238,7 +261,7 @@ class Order extends Component {
                                             multiline
                                             rows={4}
                                             variant='outlined'
-                                            label="Notes"
+                                            label='Notes'
                                             name='notes'
                                             onChange={e => this.onHandleChange(e)}
                                             value={this.state.notes}

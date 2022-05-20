@@ -8,7 +8,8 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path='/' component={Order}/>
+        {/* <Route path='/' component={Order}/> */}
+        <Route path='/order' component={Order}/>
         <Route path='/dashboard' component={Dashboard} />
       </Switch>
     </Router>
